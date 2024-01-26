@@ -5,6 +5,7 @@ import methodOverride from "method-override";
 import auth from "./src/routers/auth";
 import { initiateMongoConnection } from "./src/utils/mongoose";
 import user from "./src/routers/user";
+import cors from "cors";
 
 dotenv.config();
 
@@ -14,8 +15,8 @@ const port = process.env.PORT;
 app.use(cookieParser());
 app.use(methodOverride("_method"));
 
-app.use("/auth", express.json(), auth);
-app.use("/user", express.json(), user);
+app.use("/auth", express.json(), cors(), auth);
+app.use("/user", express.json(), cors(), user);
 
 (async () => {
   await initiateMongoConnection();

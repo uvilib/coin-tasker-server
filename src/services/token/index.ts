@@ -15,4 +15,10 @@ export const TokenService = {
     );
     return Boolean(verify);
   },
+  getVerifyAccessToken({ accessToken }: { accessToken: string }) {
+    return jwt.verify(
+      accessToken,
+      process.env.JWT_ACCESS_SECRET || "jwtAccessSecret",
+    );
+  },
 };

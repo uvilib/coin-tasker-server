@@ -3,9 +3,9 @@ import { ApiError, HttpCode } from "../../exceptions/ApiError";
 import { coreErrors } from "../../exceptions/messages";
 
 export const UserService = {
-  async uploadAvatar({ email, filename }: { email: string; filename: string }) {
+  async uploadAvatar({ _id, filename }: { _id: string; filename: string }) {
     const user = await UserModel.findOne({
-      email,
+      _id,
     });
 
     if (!user || !filename) {

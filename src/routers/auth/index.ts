@@ -13,6 +13,7 @@ router.post(
   AuthController.registration,
 );
 router.post("/login", AuthController.login);
+router.get("/check-auth", AuthController.checkAuthorized);
 router.get("/logout", AuthController.logout);
 
 export default router;

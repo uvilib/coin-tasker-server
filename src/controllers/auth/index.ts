@@ -54,7 +54,7 @@ const AuthController = {
         });
       }
 
-      const accessToken = await AuthService.login({ email, password, res });
+      const accessToken = await AuthService.login({ email, password });
 
       res.cookie("accessToken", accessToken, {
         maxAge: 24 * 60 * 60 * 1000,
@@ -67,7 +67,21 @@ const AuthController = {
       res.status(apiError.httpCode).send({ description: apiError.description });
     }
   },
-  async logout(req: Request, res: Response) {
+  async checkAuthorized(req: Request, res: Response) {
+    try {
+      const { accessToken } = req.cookies;
+
+      const { isAuthorized } = await AuthService.checkAuthorized({
+        accessToken,
+      });
+
+      res.status(isAuthorized ? HttpCode.success : HttpCode.badRequest).send();
+    } catch (error: unknown) {
+      const apiError = error as ApiErrorRes;
+      res.status(apiError.httpCode).send({ description: apiError.description });
+    }
+  },
+  async logout(_: Request, res: Response) {
     try {
       res.clearCookie("accessToken");
 

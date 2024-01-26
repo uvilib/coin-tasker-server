@@ -8,19 +8,17 @@ import {
   initiateMongoConnection,
   initiateMongoGridFs,
 } from "../../utils/mongoose";
+import { TokenService } from "../../services/token";
 
 export const UserController = {
   async uploadAvatar(req: Request, res: Response) {
     try {
       const { accessToken } = req.cookies;
 
-      const tokenData = jwt.verify(
-        accessToken,
-        process.env.JWT_ACCESS_SECRET || "jwtAccessSecret",
-      );
+      const tokenData = TokenService.getVerifyAccessToken({ accessToken });
 
       await UserService.uploadAvatar({
-        email: (tokenData as jwt.JwtPayload).email,
+        _id: (tokenData as jwt.JwtPayload)._id,
         filename: req?.file?.filename!,
       });
 
