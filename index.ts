@@ -18,13 +18,13 @@ app.use(methodOverride("_method"));
 app.use(
   "/auth",
   express.json(),
-  cors({ origin: "*", credentials: true }),
+  cors({ origin: "https://kind-heads-sleep.loca.lt", credentials: true }),
   auth,
 );
 app.use(
   "/user",
   express.json(),
-  cors({ origin: "*", credentials: true }),
+  cors({ origin: "https://kind-heads-sleep.loca.lt", credentials: true }),
   user,
 );
 
