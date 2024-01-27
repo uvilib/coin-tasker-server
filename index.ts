@@ -18,13 +18,13 @@ app.use(methodOverride("_method"));
 app.use(
   "/auth",
   express.json(),
-  cors({ origin: "http://localhost:5173" }),
+  cors({ origin: "http://localhost:5173", credentials: true }),
   auth,
 );
 app.use(
   "/user",
   express.json(),
-  cors({ origin: "http://localhost:5173" }),
+  cors({ origin: "http://localhost:5173", credentials: true }),
   user,
 );
 
