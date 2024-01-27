@@ -15,8 +15,18 @@ const port = process.env.PORT;
 app.use(cookieParser());
 app.use(methodOverride("_method"));
 
-app.use("/auth", express.json(), cors(), auth);
-app.use("/user", express.json(), cors(), user);
+app.use(
+  "/auth",
+  express.json(),
+  cors({ origin: "http://localhost:5173" }),
+  auth,
+);
+app.use(
+  "/user",
+  express.json(),
+  cors({ origin: "http://localhost:5173" }),
+  user,
+);
 
 (async () => {
   await initiateMongoConnection();
